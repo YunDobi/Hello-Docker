@@ -1,4 +1,9 @@
-FROM node:alpine
-COPY . /app
+FROM node:16-alpine
 WORKDIR /app
-CMD node app.js
+COPY package.json package-lock.json ./
+
+RUN npm ci
+
+COPY index.js .
+
+ENTRYPOINT [ "node", "index.js" ]
